@@ -325,3 +325,18 @@ test("extractPolymorphic does not break hasMany relationships", function() {
     "evilMinions": []
   });
 });
+
+test('extractErrors extracts polymorphic records errors', function() {
+  var errorsPayload = {
+    errors: {
+      evil_minions: [
+        { name: ['required'] }
+      ]
+    }
+  };
+
+  var serializer = env.container.lookup('serializer:application');
+  serializer.extractErrors(env.store, MediocreVillain, errorsPayload, null); // id (last param) is not relevant here
+
+  ok(true);
+});
